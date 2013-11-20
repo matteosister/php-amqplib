@@ -2,6 +2,7 @@
 
 namespace PhpAmqpLib\Channel;
 
+use PhpAmqpLib\Builder\Exchange;
 use PhpAmqpLib\Channel\AbstractChannel;
 use PhpAmqpLib\Exception\AMQPBasicCancelException;
 use PhpAmqpLib\Exception\AMQPProtocolChannelException;
@@ -267,7 +268,10 @@ class AMQPChannel extends AbstractChannel
                                      $arguments=null,
                                      $ticket=null)
     {
-
+        if ($exchange instanceof Exchange) {
+            list($exchange, $passive, $durable, $auto_delete, $internal,
+                $nowait, $arguments, $ticket) = $exchange->params();
+        }
         $arguments = $this->getArguments($arguments);
         $ticket = $this->getTicket($ticket);
 
