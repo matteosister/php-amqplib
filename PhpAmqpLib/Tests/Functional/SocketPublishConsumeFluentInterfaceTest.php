@@ -13,11 +13,11 @@ class SocketPublishConsumeFluentInterfaceTest extends AbstractPublishConsumeTest
         $this->ch = $this->conn->channel();
 
         $this->ch->exchange_declare(
-             Exchange::create($this->exchange_name, 'direct')
+            Exchange::create($this->exchange_name)
                 ->setPassive(false)
                 ->setDurable(false)
                 ->setAutoDelete(false),
-             'direct'
+            'direct'
         );
         list($this->queue_name,,) = $this->ch->queue_declare();
         $this->ch->queue_bind($this->queue_name, $this->exchange_name, $this->queue_name);
